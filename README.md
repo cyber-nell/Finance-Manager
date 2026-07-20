@@ -1,2 +1,7 @@
-# Finance-Manager
-A way to track spending by asking AI to add a transaction to the database or fetching how much has been spent in a certain category
+# Personal AI Finance Manager
+Instead of filling out complex forms or writing manual SQL queries, users can interact naturally in natural speech text to track transactions, check spending, and monitor budget limits in real time.
+
+
+### How to use
+- Create API key via gemini api
+-  Run Streamlit in terminal using "streamlit run"
