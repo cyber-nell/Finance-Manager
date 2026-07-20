@@ -42,24 +42,23 @@ def fetching(wanted_category: str):
 
 
             #comparing budgeted amount
-           # if wanted_category.lower() != "all":
-            #    cursor.execute(budget_category_sql,(wanted_category,))
-             #   budget_val_list = cursor.fetchall()
-            #
-             #   if budget_val_list:
-              #      allocated_budget = budget_val_list[0][0]
-               #     print("Budgeted limit for: £", allocated_budget)
+            if wanted_category.lower() != "all":
+                cursor.execute(budget_category_sql,(wanted_category,))
+                budget_val_list = cursor.fetchall()
+             
+                if budget_val_list:
+                   allocated_budget = budget_val_list[0][0]
                     
-                #    if total > allocated_budget:
-                 #       print(" Warning: You have exceeded your budget by £{total - allocated_budget:.2f}!")
-                  #  else:
-                   #     print("You have £",(allocated_budget - total),"remaining.")
+                   if total > allocated_budget:
+                        message = f" Warning: You have exceeded your budget by £{total - allocated_budget:.2f}!"
+                   else:
+                        message =  f"You have ££{allocated_budget - total:.2f} remaining."
 
-            return total
+            return {"total": total, "budget_message": message} 
 
 
 #AI function calling
-client = genai.Client() #Add your own AI API
+client = genai.Client(api_key="") #Add your own AI API here
 
 #schema for insertion function
 insertion_declaration = {
@@ -133,6 +132,8 @@ if prompt := st.chat_input("What would you like to do today?"):
         response_text = f"Executing database search for category: **{category}**\n\n"
         response_text += f"You have spent: **£{total:.2f}**"
 
+        if total["budget_message"]:
+            response_text += f"{total['budget_message']}"
 
     elif fc_step.name == "insertion":
         date = fc_step.arguments.get("date", "2026-07-13") # Fallback to today's date if missing
@@ -143,6 +144,7 @@ if prompt := st.chat_input("What would you like to do today?"):
 
         insertion(date, description, category, amount, tx_type)
         response_text = f" Added **{description}** (£{amount:.2f}) to your **{category}** transaction history on {date}."
+        st.subheader("Budgets")
     else:
         response_text = interaction.text
 
