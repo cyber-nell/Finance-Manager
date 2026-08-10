@@ -17,3 +17,5 @@ This can be used instead of manually writing SQL or filling out complex forms
 
 ### Chat Screenshot
 <img width="452" height="254" alt="Chat screenshot" src="https://github.com/user-attachments/assets/2c8795f7-678e-4983-9fbf-a9de94330b3c" />
+
+<img width="427" height="255" alt="image" src="https://github.com/user-attachments/assets/bc7bc70c-d480-4ea9-97b1-bb73bc64c671" />
